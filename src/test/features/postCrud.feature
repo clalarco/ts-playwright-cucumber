@@ -6,9 +6,8 @@ Background: Valid user login
     Then Should display Home page
 
  Scenario: View post details
-        Given Post must be  listed
-        When User select the post 
+        Given Post must be listed
+        When User select the post
         Then Should display the post details
 
-     
-    
+

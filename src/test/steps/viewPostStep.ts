@@ -1,4 +1,4 @@
-import { Given, When, Then } from '@cucumber/cucumber'
+import { Given, When, Then, AfterAll } from '@cucumber/cucumber'
 import { Browser, Page, chromium } from "@playwright/test"
 import LoginPage from "../../../pages/loginPage"
 import GlobalFeedListPage from "../../../pages/globalFeedPage"
@@ -8,7 +8,7 @@ import { expect } from '@playwright/test'
 
 const uName = "corpdevops@gmail.com"
 const pwd = "conduit123"
-const articleTitle = "MyNewArticle3"
+const articleTitle = "MyNewArticle6"
 
 let globalListPage: GlobalFeedListPage
 let viewPostPage: PostViewPage
@@ -35,7 +35,7 @@ Then('Should display Home page', async function () {
     await homePage.validateLogin();
 });
 
-Given('Post must be  listed', async function () {
+Given('Post must be listed', async function () {
     homePage = new HomePage(page)
     viewPostPage = new PostViewPage(page)
     await homePage.navigateToGlobalFeed()
@@ -48,4 +48,8 @@ When('User select the post', async function () {
 
 Then('Should display the post details', async function () {
     await expect(viewPostPage.isPostAvailable(articleTitle)).toContainText(articleTitle)
+});
+
+AfterAll(async () => {
+    await browser.close()
 });
